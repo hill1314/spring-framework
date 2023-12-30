@@ -126,7 +126,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 		try {
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
+			//对IOC容器定制化，如 设置启动参数、开启注解的自动装配等
 			customizeBeanFactory(beanFactory);
+			//调用载入bean定义的方法，委派模式（实现在子类中）
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		}

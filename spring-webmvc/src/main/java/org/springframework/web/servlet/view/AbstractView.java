@@ -313,6 +313,8 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 
 		Map<String, Object> mergedModel = createMergedOutputModel(model, request, response);
 		prepareResponse(request, response);
+
+		//org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel
 		renderMergedOutputModel(mergedModel, getRequestToExpose(request), response);
 	}
 
