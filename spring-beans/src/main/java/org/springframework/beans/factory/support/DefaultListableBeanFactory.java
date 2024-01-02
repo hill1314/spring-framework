@@ -1314,6 +1314,17 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 	}
 
+	/**
+	 * 解析依赖
+	 * 包括 @Autowired字段、@Autowired方法、@Value属性值
+	 *
+	 * @param descriptor         描述符
+	 * @param beanName           bean名称
+	 * @param autowiredBeanNames 自动连接bean名称
+	 * @param typeConverter      型转换器
+	 * @return {@link Object}
+	 * @throws BeansException beans异常
+	 */
 	@Nullable
 	public Object doResolveDependency(DependencyDescriptor descriptor, @Nullable String beanName,
 			@Nullable Set<String> autowiredBeanNames, @Nullable TypeConverter typeConverter) throws BeansException {
@@ -1328,6 +1339,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			Class<?> type = descriptor.getDependencyType();
 			Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
 			if (value != null) {
+				//解析string类型值
 				if (value instanceof String) {
 					String strVal = resolveEmbeddedValue((String) value);
 					BeanDefinition bd = (beanName != null && containsBean(beanName) ?

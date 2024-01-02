@@ -79,7 +79,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Cache of singleton factories: bean name to ObjectFactory.
-	 * 单例bean的缓存
+	 * MY-NOTE : 存放 单例bean的缓存
 	 * */
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 

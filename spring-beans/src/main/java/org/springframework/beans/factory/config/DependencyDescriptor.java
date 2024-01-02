@@ -46,6 +46,8 @@ import org.springframework.util.ObjectUtils;
  * Wraps a constructor parameter, a method parameter or a field,
  * allowing unified access to their metadata.
  *
+ * MY-NOTE : 将要注入的特定依赖项的描述符。包装构造函数参数、方法参数或字段，允许对其元数据进行统一访问
+ *
  * @author Juergen Hoeller
  * @since 2.5
  */

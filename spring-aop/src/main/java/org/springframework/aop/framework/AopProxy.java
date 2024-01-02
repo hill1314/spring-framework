@@ -19,6 +19,7 @@ package org.springframework.aop.framework;
 import org.springframework.lang.Nullable;
 
 /**
+ * MY-NOTE AopProxy 代理接口
  * Delegate interface for a configured AOP proxy, allowing for the creation
  * of actual proxy objects.
  *

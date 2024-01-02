@@ -115,6 +115,13 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 
 	/**
 	 * Inner class to just introduce an AOP framework dependency when actually in proxy mode.
+	 * MY-NOTE 配置自动代理的相关信息，用于支持面向切面编程（AOP）。
+	 *
+	 * 具体来说，AopAutoProxyConfigurer内部类是ProxyConfig的一个实现，它通过解析配置和应用程序上下文来确定哪些Bean需要被代理，
+	 * 并根据配置创建相应的代理对象。它使用Spring的AOP框架来生成动态代理，从而实现在方法调用前后添加额外逻辑的功能，例如事务管理、日志记录等。
+	 *
+	 * 通过AopAutoProxyConfigurer，开发人员可以通过配置文件或编程方式指定哪些类需要被代理，以及使用哪种代理方式（例如JDK动态代理还是CGLIB代理）。
+	 * 这样可以实现横切关注点的集中管理，提高代码的可维护性和重用性。
 	 */
 	private static class AopAutoProxyConfigurer {
 

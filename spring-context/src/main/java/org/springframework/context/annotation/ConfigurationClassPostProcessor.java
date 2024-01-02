@@ -70,6 +70,11 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
+ * my-note BeanFactoryPostProcessor用于@Configuration类的引导处理。
+ * 在使用时默认注册。否则，可以像使用任何其他BeanFactoryPostProcessor一样手动声明。
+ * 这个后处理器是按优先级排序的，因为在任何其他BeanFactoryPostProcessor执行之前，
+ * 在@Configuration类中声明的任何@Bean方法都必须注册其相应的Bean定义，这一点很重要
+ *
  * {@link BeanFactoryPostProcessor} used for bootstrapping processing of
  * {@link Configuration @Configuration} classes.
  *

@@ -17,6 +17,7 @@
 package org.springframework.beans.factory;
 
 /**
+ * my-note InitializingBean 提供了一种内置的初始化手段
  * Interface to be implemented by beans that need to react once all their properties
  * have been set by a {@link BeanFactory}: e.g. to perform custom initialization,
  * or merely to check that all mandatory properties have been set.

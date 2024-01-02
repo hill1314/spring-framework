@@ -26,6 +26,7 @@ import org.springframework.core.type.ClassMetadata;
 import org.springframework.lang.Nullable;
 
 /**
+ * my-note 访问类元数据 信息
  * {@link MetadataReader} implementation based on an ASM
  * {@link org.springframework.asm.ClassReader}.
  *
