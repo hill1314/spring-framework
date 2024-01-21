@@ -137,6 +137,7 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	 * An ApplicationContext will typically set a standard expression strategy
 	 * here, supporting "#{...}" expressions in a Unified EL compatible style.
 	 * @since 3.0
+	 * 	为bean定义值中的表达式指定解析策略
 	 */
 	void setBeanExpressionResolver(@Nullable BeanExpressionResolver resolver);
 
@@ -218,6 +219,8 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	void addEmbeddedValueResolver(StringValueResolver valueResolver);
 
 	/**
+	 * 确定嵌入式值解析器是否已向该bean工厂注册
+	 *
 	 * Determine whether an embedded value resolver has been registered with this
 	 * bean factory, to be applied through {@link #resolveEmbeddedValue(String)}.
 	 * @since 4.3

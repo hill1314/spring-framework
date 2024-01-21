@@ -787,10 +787,18 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	// Implementation of ConfigurableListableBeanFactory interface
 	//---------------------------------------------------------------------
 
+	/**
+	 * 注册一个可解析的依赖项，
+	 * 以确保在解析依赖关系时将其视为已解析。这通常用于向容器注册特定类型的依赖项，以便在需要时自动解析。
+	 *
+	 * @param dependencyType 依赖关系类型
+	 * @param autowiredValue 自动连线值
+	 */
 	@Override
 	public void registerResolvableDependency(Class<?> dependencyType, @Nullable Object autowiredValue) {
 		Assert.notNull(dependencyType, "Dependency type must not be null");
 		if (autowiredValue != null) {
+			//类型判断
 			if (!(autowiredValue instanceof ObjectFactory || dependencyType.isInstance(autowiredValue))) {
 				throw new IllegalArgumentException("Value [" + autowiredValue +
 						"] does not implement specified dependency type [" + dependencyType.getName() + "]");

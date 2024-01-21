@@ -19,6 +19,7 @@ package org.springframework.expression;
 /**
  * Input provided to an expression parser that can influence an expression
  * parsing/compilation routine.
+ * 提供给表达式解析器的输入，该输入可以影响表达式解析编译例程
  *
  * @author Keith Donald
  * @author Andy Clement
@@ -27,6 +28,8 @@ package org.springframework.expression;
 public interface ParserContext {
 
 	/**
+	 * 正在分析的表达式是否为模板。模板表达式由可以与可评估块混合的文本组成
+	 *
 	 * Whether the expression being parsed is a template. A template expression
 	 * consists of literal text that can be mixed with evaluatable blocks. Some examples:
 	 * <pre class="code">

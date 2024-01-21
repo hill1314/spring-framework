@@ -37,6 +37,11 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
+ * LiveBeansView 是 Spring Framework 提供的一个功能，用于以可视化的方式展示当前应用程序上下文中的 Bean 信息。
+ * 它允许开发者在运行时查看应用程序中的 Bean，包括 Bean 的名称、类型、作用域等信息。
+ * 这对于调试和监控应用程序的 Bean 配置非常有用，特别是在开发和调试阶段。
+ * 5.3 废弃，建议 使用Spring Boot执行器来满足这些需求
+ *
  * Adapter for live beans view exposure, building a snapshot of current beans
  * and their dependencies from either a local {@code ApplicationContext} (with a
  * local {@code LiveBeansView} bean definition) or all registered ApplicationContexts

@@ -20,6 +20,9 @@ import org.springframework.beans.factory.Aware;
 import org.springframework.core.type.AnnotationMetadata;
 
 /**
+ * 用于处理被 @Import 注解引入的配置类。当一个 Bean 实现了 ImportAware 接口，它可以获得关于被导入配置类的信息，包括注解属性等。
+ * 这样的设计允许 Bean 在运行时获取导入配置类的相关信息，以便执行适当的操作。
+ *
  * Interface to be implemented by any @{@link Configuration} class that wishes
  * to be injected with the {@link AnnotationMetadata} of the @{@code Configuration}
  * class that imported it. Useful in conjunction with annotations that

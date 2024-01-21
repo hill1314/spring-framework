@@ -20,6 +20,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringValueResolver;
 
 /**
+ * 用于解析bean定义中的占位符。它特别适用于处理属性文件或环境变量，允许你将值注入到Spring bean中。
+ * 该解析器会用实际值替换占位符，使配置更加动态灵活。
+ *
  * {@link StringValueResolver} adapter for resolving placeholders and
  * expressions against a {@link ConfigurableBeanFactory}.
  *

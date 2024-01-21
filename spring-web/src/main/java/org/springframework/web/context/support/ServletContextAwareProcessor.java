@@ -26,6 +26,8 @@ import org.springframework.web.context.ServletConfigAware;
 import org.springframework.web.context.ServletContextAware;
 
 /**
+ * Servlet 相关信息的 Aware接口回调 后置处理器
+ *
  * {@link org.springframework.beans.factory.config.BeanPostProcessor}
  * implementation that passes the ServletContext to beans that implement
  * the {@link ServletContextAware} interface.

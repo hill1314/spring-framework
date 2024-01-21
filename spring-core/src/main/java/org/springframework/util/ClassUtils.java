@@ -897,6 +897,8 @@ public abstract class ClassUtils {
 	}
 
 	/**
+	 * 为给定实例返回用户定义的类：通常只是给定实例的类，但如果是CGLIB生成的子类，则返回原始类。
+	 *
 	 * Return the user-defined class for the given instance: usually simply
 	 * the class of the given instance, but the original class in case of a
 	 * CGLIB-generated subclass.

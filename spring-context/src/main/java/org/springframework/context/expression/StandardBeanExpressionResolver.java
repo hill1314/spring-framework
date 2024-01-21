@@ -46,6 +46,15 @@ import org.springframework.util.StringUtils;
  * predefined variables with their common bean name, including standard context
  * beans such as "environment", "systemProperties" and "systemEnvironment".
  *
+ * 主要用于解析Bean表达式（Bean expressions）。其作用包括：
+ * 1. 解析Bean表达式：StandardBeanExpressionResolver用于解析Spring中的SpEL（Spring Expression Language）表达式。
+ * 	这些表达式可以用于在XML配置文件、注解中或者其他地方引用Bean，执行运行时计算，或者进行动态属性设置等。
+ * 2. 支持动态计算：通过SpEL表达式，StandardBeanExpressionResolver可以支持动态计算属性值，动态引用Bean，或者执行一些复杂的逻辑操作。
+ * 	这使得在配置文件中能够更加灵活地定义Bean之间的关系和属性值。
+ * 3. 与注解驱动的开发集成：在基于注解的开发中，StandardBeanExpressionResolver可以与@Value注解一起使用，允许在注解中使用SpEL表达式来动态注入属性值。
+ *
+ * 通过支持SpEL表达式，它提供了一种灵活的方式来处理动态属性设置、Bean引用和运行时计算，从而增强了Spring框架的灵活性和可扩展性。
+ *
  * @author Juergen Hoeller
  * @since 3.0
  * @see BeanExpressionContext#getBeanFactory()
@@ -66,6 +75,9 @@ public class StandardBeanExpressionResolver implements BeanExpressionResolver {
 
 	private String expressionSuffix = DEFAULT_EXPRESSION_SUFFIX;
 
+	/**
+	 * 表达式解析器
+	 */
 	private ExpressionParser expressionParser;
 
 	private final Map<String, Expression> expressionCache = new ConcurrentHashMap<>(256);

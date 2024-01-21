@@ -26,6 +26,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * LoadTimeWeaverAwareProcessor 的作用是在 Spring 中用于处理实现了 LoadTimeWeaverAware 接口的 bean。
+ * 它负责识别和处理这些 bean，以便在应用程序上下文初始化期间将 LoadTimeWeaver（加载时织入器）注入到相应的 bean 中。
+ * 加载时织入器可以用于在类加载时进行字节码增强，通常用于 AOP（面向切面编程）和其他增强技术
+ *
  * {@link org.springframework.beans.factory.config.BeanPostProcessor}
  * implementation that passes the context's default {@link LoadTimeWeaver}
  * to beans that implement the {@link LoadTimeWeaverAware} interface.

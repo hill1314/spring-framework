@@ -22,6 +22,13 @@ import org.springframework.lang.Nullable;
 /**
  * Configuration object for the SpEL expression parser.
  *
+ * pelParserConfiguration是Spring框架中用于配置SpEL（Spring Expression Language）解析器的类。它的作用包括：
+ * 1. 定制SpEL解析器行为：SpelParserConfiguration允许开发者根据需要定制SpEL解析器的行为，例如配置是否允许访问特定的类、方法或属性，以及是否启用安全性检查等。
+ * 2. 安全性控制：通过SpelParserConfiguration，可以对SpEL表达式的执行进行安全性控制，限制表达式的访问权限，防止恶意代码执行。
+ * 3. 性能优化：开发者可以通过SpelParserConfiguration进行性能优化，例如缓存SpEL表达式的解析结果，以提高表达式的执行效率。
+ *
+ * 总之，SpelParserConfiguration提供了对SpEL解析器行为的灵活配置，可以在一定程度上控制SpEL表达式的安全性和性能，并且允许开发者根据实际需求对SpEL解析器进行定制化。
+ *
  * @author Juergen Hoeller
  * @author Phillip Webb
  * @author Andy Clement

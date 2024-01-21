@@ -70,7 +70,11 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * my-note BeanFactoryPostProcessor用于@Configuration类的引导处理。
+ * ConfigurationClassPostProcessor 是 Spring 中用于处理配置类的后置处理器。
+ * 它负责处理带有 {@link Configuration}注解的类，解析其中的Bean定义，处理@Import、@PropertySource等注解，以及执行其他与配置类相关的特殊处理。
+ * 这个后置处理器在Spring的应用上下文初始化阶段起着<重要作用，确保配置类中的各种元数据得以正确解析和处理。
+ *
+ * BeanFactoryPostProcessor 用于@Configuration类的引导处理
  * 在使用时默认注册。否则，可以像使用任何其他BeanFactoryPostProcessor一样手动声明。
  * 这个后处理器是按优先级排序的，因为在任何其他BeanFactoryPostProcessor执行之前，
  * 在@Configuration类中声明的任何@Bean方法都必须注册其相应的Bean定义，这一点很重要
@@ -270,7 +274,10 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
 
+		//增强配置类
 		enhanceConfigurationClasses(beanFactory);
+
+		//添加 ImportAwareBeanPostProcessor 后置处理器
 		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
 	}
 
@@ -462,6 +469,13 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	}
 
 
+	/**
+	 * 支持导入bean后处理器
+	 * 用于处理实现了 ImportAware 接口的 bean
+	 *
+	 * @author huleilei9
+	 * @date 2024/01/21
+	 */
 	private static class ImportAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
 
 		private final BeanFactory beanFactory;

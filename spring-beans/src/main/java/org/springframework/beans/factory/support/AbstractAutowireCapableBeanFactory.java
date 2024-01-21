@@ -86,6 +86,9 @@ import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.util.StringUtils;
 
 /**
+ * 用于实现 Bean 的自动装配功能。它提供了一种机制，能够在创建 Bean 实例时《自动解析依赖关系》，并将相应的依赖注入到 Bean 中。
+ * 这个类的作用是允许 Spring 容器在实例化 Bean 时自动处理依赖注入，使得开发者无需手动管理 Bean 之间的依赖关系。
+ *
  * Abstract bean factory superclass that implements default bean creation,
  * with the full capabilities specified by the {@link RootBeanDefinition} class.
  * Implements the {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}
@@ -446,6 +449,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		return result;
 	}
 
+	/**
+	 * bean 初始化后执行 bean后置处理器
+	 *
+	 * @param existingBean 现有bean
+	 * @param beanName     bean名称
+	 * @return {@link Object}
+	 * @throws BeansException beans异常
+	 */
 	@Override
 	public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName)
 			throws BeansException {
@@ -528,7 +539,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		try {
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
-			//如果bean 配置了初始化 前置、后置处理器，返回一个创建bean的代理对象
+			//my-note 如果bean 配置了初始化 前置、后置处理器，返回一个创建bean的代理对象
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -540,6 +551,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
+			//my-note 创建 bean实例
 			Object beanInstance = doCreateBean(beanName, mbdToUse, args);
 			if (logger.isTraceEnabled()) {
 				logger.trace("Finished creating instance of bean '" + beanName + "'");
@@ -580,7 +592,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
-			//创建实例
+			//my-note 1.创建实例
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
 		Object bean = instanceWrapper.getWrappedInstance();
@@ -619,9 +631,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Initialize the bean instance.
 		Object exposedObject = bean;
 		try {
-			//将bean 实例对象封装，并将bean定义配置属性赋值给bean
+			//my-note 2、将bean 实例对象封装，并将bean定义配置属性赋值给bean
 			populateBean(beanName, mbd, instanceWrapper);
-			//初始化bean
+			//my-note 3、初始化bean
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
@@ -1198,7 +1210,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		if (mbd.getFactoryMethodName() != null) {
-			//使用 工厂方法 实例化
+			//my-note 使用 工厂方法 实例化
 			return instantiateUsingFactoryMethod(beanName, mbd, args);
 		}
 
@@ -1227,7 +1239,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR ||
 				mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args)) {
-			//使用构造方法实例化
+			//my-note 使用构造方法实例化
 			return autowireConstructor(beanName, mbd, ctors, args);
 		}
 
@@ -1332,7 +1344,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 						getAccessControlContext());
 			}
 			else {
-				//使用不同的策略实例化
+				//my-note 使用不同的策略实例化
 				beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, this);
 			}
 			BeanWrapper bw = new BeanWrapperImpl(beanInstance);

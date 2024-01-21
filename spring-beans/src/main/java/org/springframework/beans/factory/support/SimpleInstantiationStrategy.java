@@ -63,7 +63,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 		if (!bd.hasMethodOverrides()) {
 			Constructor<?> constructorToUse;
 			synchronized (bd.constructorArgumentLock) {
-				//获取对象的构造函数 或 工厂方法
+				//my-note 获取对象的构造函数 或 工厂方法
 				constructorToUse = (Constructor<?>) bd.resolvedConstructorOrFactoryMethod;
 				if (constructorToUse == null) {
 					final Class<?> clazz = bd.getBeanClass();
@@ -86,12 +86,12 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 				}
 			}
 
-			//通风反射 调用实例化
+			//my-note 通过反射调用 实例化
 			return BeanUtils.instantiateClass(constructorToUse);
 		}
 		else {
 			// Must generate CGLIB subclass.
-			//没有接口继承时，使用 cgLib 生成子类的方式创建bean实例
+			//my-note 没有接口继承时，使用 cgLib 生成子类的方式创建bean实例
 			return instantiateWithMethodInjection(bd, beanName, owner);
 		}
 	}

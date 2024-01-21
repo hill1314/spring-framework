@@ -25,6 +25,7 @@ import org.springframework.expression.spel.SpelMessage;
 import org.springframework.expression.spel.SpelParseException;
 
 /**
+ * Lex将一些输入数据转换为 《令牌流》，然后可以对其进行解析
  * Lex some input data into a stream of tokens that can then be parsed.
  *
  * @author Andy Clement

@@ -27,8 +27,14 @@ import org.springframework.expression.ParserContext;
  */
 public class TemplateParserContext implements ParserContext {
 
+	/**
+	 * 表达式前缀
+	 */
 	private final String expressionPrefix;
 
+	/**
+	 * 表达式后缀
+	 */
 	private final String expressionSuffix;
 
 

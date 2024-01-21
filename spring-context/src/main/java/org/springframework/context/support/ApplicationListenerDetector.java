@@ -31,6 +31,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 /**
+ * Listener检测器
+ * 在 Spring 中，ApplicationListenerDetector 是一个用于检测并注册应用程序监听器（Application Listeners）的组件。
+ * 在 Spring 应用程序上下文初始化过程中，ApplicationListenerDetector 会扫描 bean 定义，寻找实现了 ApplicationListener 接口的类。
+ * 一旦找到这样的类，它就会将其注册为应用程序事件监听器
+ *
  * {@code BeanPostProcessor} that detects beans which implement the {@code ApplicationListener}
  * interface. This catches beans that can't reliably be detected by {@code getBeanNamesForType}
  * and related operations which only work against top-level beans.
@@ -59,6 +64,7 @@ class ApplicationListenerDetector implements DestructionAwareBeanPostProcessor, 
 
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
+		//判断是否实现了 ApplicationListener接口，判断是否单例
 		if (ApplicationListener.class.isAssignableFrom(beanType)) {
 			this.singletonNames.put(beanName, beanDefinition.isSingleton());
 		}
@@ -76,9 +82,11 @@ class ApplicationListenerDetector implements DestructionAwareBeanPostProcessor, 
 			Boolean flag = this.singletonNames.get(beanName);
 			if (Boolean.TRUE.equals(flag)) {
 				// singleton bean (top-level or inner): register on the fly
+				//添加到监听器列表
 				this.applicationContext.addApplicationListener((ApplicationListener<?>) bean);
 			}
 			else if (Boolean.FALSE.equals(flag)) {
+				//监听器 要求必须是单例，否则不进行注册
 				if (logger.isWarnEnabled() && !this.applicationContext.containsBean(beanName)) {
 					// inner bean with other scope - can't reliably process events
 					logger.warn("Inner bean '" + beanName + "' implements ApplicationListener interface " +
