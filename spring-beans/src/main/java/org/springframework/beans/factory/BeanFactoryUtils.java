@@ -72,6 +72,7 @@ public abstract class BeanFactoryUtils {
 	}
 
 	/**
+	 * my-note 返回实际的bean名称，去掉工厂引用前缀（如果有，也去掉重复的工厂前缀（如果找到）
 	 * Return the actual bean name, stripping out the factory dereference
 	 * prefix (if any, also stripping repeated factory prefixes if found).
 	 * @param name the name of the bean
@@ -122,6 +123,7 @@ public abstract class BeanFactoryUtils {
 	// Retrieval of bean names
 
 	/**
+	 * my-note 统计此工厂参与的任何层次结构中的所有bean,包括祖先bean工厂的数量
 	 * Count all beans in any hierarchy in which this factory participates.
 	 * Includes counts of ancestor bean factories.
 	 * <p>Beans that are "overridden" (specified in a descendant factory

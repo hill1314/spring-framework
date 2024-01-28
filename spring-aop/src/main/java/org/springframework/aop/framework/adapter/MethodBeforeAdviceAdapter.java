@@ -34,6 +34,12 @@ import org.springframework.aop.MethodBeforeAdvice;
 @SuppressWarnings("serial")
 class MethodBeforeAdviceAdapter implements AdvisorAdapter, Serializable {
 
+	/**
+	 * 判断是不是 支持的切面
+	 *
+	 * @param advice 劝告
+	 * @return boolean
+	 */
 	@Override
 	public boolean supportsAdvice(Advice advice) {
 		return (advice instanceof MethodBeforeAdvice);

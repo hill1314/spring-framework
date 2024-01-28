@@ -380,6 +380,13 @@ class ConstructorResolver {
 	 * to match with the parameters. We don't have the types attached to constructor args,
 	 * so trial and error is the only way to go here. The explicitArgs array may contain
 	 * argument values passed in programmatically via the corresponding getBean method.
+	 *
+	 * 使用指定的工厂方法实例化bean。
+	 * 如果bean定义参数指定了一个类，而不是“工厂bean”，或者使用依赖注入配置的工厂对象本身的实例变量，则该方法可能是静态的
+	 * 实现需要迭代RootBeanDefinition中指定名称的静态或实例方法（该方法可能已重载），并尝试与参数匹配。
+	 * 我们没有将类型附加到构造函数args，所以试错是唯一的方法。
+	 * explicitArgs数组可能包含通过相应的getBean方法以编程方式传入的参数值
+	 *
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @param explicitArgs argument values passed in programmatically via the getBean
@@ -634,6 +641,16 @@ class ConstructorResolver {
 		return bw;
 	}
 
+	/**
+	 * 实例化
+	 *
+	 * @param beanName      bean名称
+	 * @param mbd           mbd
+	 * @param factoryBean   工厂bean
+	 * @param factoryMethod 工厂方法
+	 * @param args          args
+	 * @return {@link Object}
+	 */
 	private Object instantiate(String beanName, RootBeanDefinition mbd,
 			@Nullable Object factoryBean, Method factoryMethod, Object[] args) {
 

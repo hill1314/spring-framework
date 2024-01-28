@@ -34,8 +34,12 @@ import org.springframework.util.StringUtils;
 /**
  * Simple object instantiation strategy for use in a BeanFactory.
  *
+ * my-note SimpleInstantiationStrategy 使用标准的 Java 反射机制来实例化 Bean，
+ * 如果 Bean 类是一个普通的 Java 类，它会直接使用其 构造函数 来创建实例
+ *
  * <p>Does not support Method Injection, although it provides hooks for subclasses
  * to override to add Method Injection support, for example by overriding methods.
+ * 不支持方法注入，尽管它为子类提供了钩子来覆盖以添加方法注入支持，例如通过覆盖方法。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

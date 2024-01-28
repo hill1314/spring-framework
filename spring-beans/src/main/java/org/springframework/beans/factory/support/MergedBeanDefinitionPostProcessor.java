@@ -19,6 +19,9 @@ package org.springframework.beans.factory.support;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
+ * ，my-note 用于在 Bean 定义合并过程中对 Bean 进行后处理。它允许开发者在 Bean 定义被合并之后对其进行进一步的处理或修改。
+ * 	通过实现这个接口，开发者可以在 Bean 定义被合并后对其进行自定义的处理，以满足特定的需求
+ *
  * Post-processor callback interface for <i>merged</i> bean definitions at runtime.
  * {@link BeanPostProcessor} implementations may implement this sub-interface in order
  * to post-process the merged bean definition (a processed copy of the original bean

@@ -41,6 +41,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
+ * my-note CglibSubclassingInstantiationStrategy 使用 CGLIB 库来创建 Bean 的子类，通过继承的方式来实现 Bean 的实例化。
+ * 这种策略通常用于创建代理对象或者执行增强的操作
+ *
  * Default object instantiation strategy for use in BeanFactories.
  *
  * <p>Uses CGLIB to generate subclasses dynamically if methods need to be

@@ -22,8 +22,9 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 
 /**
- * Interface allowing extension to the Spring AOP framework to allow
- * handling of new Advisors and Advice types.
+ * AOP 适配器
+ * interface allowing extension to the spring aop framework to allow
+ * handling of new advisors and advice types.
  *
  * <p>Implementing objects can create AOP Alliance Interceptors from
  * custom advice types, enabling these advice types to be used

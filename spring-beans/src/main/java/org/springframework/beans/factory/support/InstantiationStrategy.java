@@ -26,6 +26,11 @@ import org.springframework.lang.Nullable;
 /**
  * Interface responsible for creating instances corresponding to a root bean definition.
  *
+ * my-note 该接口用于定义如何实例化 Bean。
+ * 它允许开发者在创建 Bean 实例时自定义实例化的策略，比如通过构造函数、工厂方法等方式。
+ * 主要实现类包括 SimpleInstantiationStrategy 和 CglibSubclassingInstantiationStrategy。
+ * 这些实现类提供了不同的实例化策略，以满足不同场景下的需求。
+ *
  * <p>This is pulled out into a strategy as various approaches are possible,
  * including using CGLIB to create subclasses on the fly to support Method Injection.
  *
