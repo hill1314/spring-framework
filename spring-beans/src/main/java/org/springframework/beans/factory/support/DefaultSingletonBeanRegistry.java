@@ -82,7 +82,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Cache of singleton factories: bean name to ObjectFactory.
-	 * my-note 三级缓存，存放可以生成Bean的工厂
+	 * my-note 三级缓存，存放可以生成Bean的工厂 （有代理的场景）
 	 * */
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
@@ -96,7 +96,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private final Set<String> registeredSingletons = new LinkedHashSet<>(256);
 
 	/** Names of beans that are currently in creation.
-	 * 正在创建中的bean实例集合
+	 * my-note 正在创建中的bean实例集合
 	 * */
 	private final Set<String> singletonsCurrentlyInCreation =
 			Collections.newSetFromMap(new ConcurrentHashMap<>(16));
@@ -218,7 +218,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 								singletonObject = singletonFactory.getObject();
 								//bean实例到到二级缓存中
 								this.earlySingletonObjects.put(beanName, singletonObject);
-								//从三级中清楚
+								//从三级中清除
 								this.singletonFactories.remove(beanName);
 							}
 						}

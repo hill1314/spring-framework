@@ -311,6 +311,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	}
 
 	/**
+	 * 查找当前请求的最佳匹配处理程序方法。如果找到多个匹配项，则选择最佳匹配项
+	 *
 	 * Look up the best-matching handler method for the current request.
 	 * If multiple matches are found, the best match is selected.
 	 * @param exchange the current exchange
@@ -321,6 +323,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	@Nullable
 	protected HandlerMethod lookupHandlerMethod(ServerWebExchange exchange) throws Exception {
 		List<Match> matches = new ArrayList<>();
+
 		List<T> directPathMatches = this.mappingRegistry.getMappingsByDirectPath(exchange);
 		if (directPathMatches != null) {
 			addMatchingMappings(directPathMatches, matches, exchange);
@@ -332,6 +335,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			Comparator<Match> comparator = new MatchComparator(getMappingComparator(exchange));
 			matches.sort(comparator);
 			Match bestMatch = matches.get(0);
+			//匹配到多个，找出最合适的
 			if (matches.size() > 1) {
 				if (logger.isTraceEnabled()) {
 					logger.trace(exchange.getLogPrefix() + matches.size() + " matching mappings: " + matches);
@@ -355,6 +359,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				}
 			}
 			handleMatch(bestMatch.mapping, bestMatch.getHandlerMethod(), exchange);
+			//
 			return bestMatch.getHandlerMethod();
 		}
 		else {
