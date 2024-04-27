@@ -186,6 +186,7 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 
 
 	/**
+	 * MY-NOTE 注解方式加载 beanDefinition
 	 * Register a {@link org.springframework.beans.factory.config.BeanDefinition} for
 	 * any classes specified by {@link #register(Class...)} and scan any packages
 	 * specified by {@link #scan(String...)}.

@@ -43,9 +43,15 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
+ * my-note  >>> AdvisedSupport 工具类，解析AOP 配置信息，并构建切面与切点之间的关系
+ * AOP代理配置管理器的基类。
+ * 这些本身不是AOP代理，但此类的子类通常是直接从中获得AOP代理实例的工厂
+ *
  * Base class for AOP proxy configuration managers.
  * These are not themselves AOP proxies, but subclasses of this class are
  * normally factories from which AOP proxy instances are obtained directly.
+ *
+ * 这个类释放了Advice的内务管理的子类和Advisors，但实际上没有实现代理创建方法，这些方法由子类提供
  *
  * <p>This class frees subclasses of the housekeeping of Advices
  * and Advisors, but doesn't actually implement proxy creation
@@ -80,7 +86,9 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/** The AdvisorChainFactory to use. */
 	AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
 
-	/** Cache with Method as key and advisor chain List as value. */
+	/** Cache with Method as key and advisor chain List as value.
+	 *  方法对应的切面执行链 缓存
+	 *  */
 	private transient Map<MethodCacheKey, List<Object>> methodCache;
 
 	/**
@@ -467,6 +475,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		MethodCacheKey cacheKey = new MethodCacheKey(method);
 		List<Object> cached = this.methodCache.get(cacheKey);
 		if (cached == null) {
+			//获取方法所有的拦截器切面
 			cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(
 					this, method, targetClass);
 			this.methodCache.put(cacheKey, cached);

@@ -451,7 +451,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
-	 * bean 初始化后执行 bean后置处理器
+	 * my-note bean 初始化后执行 bean后置处理器
+	 * 代理对象的生成也在后置处理器中 （AbstractAdvisingBeanPostProcessor）
 	 *
 	 * @param existingBean 现有bean
 	 * @param beanName     bean名称
@@ -595,7 +596,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
-			//my-note 1.创建实例
+			//my-note 1. 创建实例
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
 		Object bean = instanceWrapper.getWrappedInstance();
@@ -637,7 +638,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		try {
 			//my-note 2、将bean 实例对象封装，依赖注入，并将bean定义配置属性赋值给bean
 			populateBean(beanName, mbd, instanceWrapper);
-			//my-note 3、初始化bean
+
+			//my-note 3、初始化bean( 对 exposedObject 进行了重置，包含代理的处理)
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
@@ -1238,7 +1240,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				return autowireConstructor(beanName, mbd, null, null);
 			}
 			else {
-				//使用默认的无参构造函数实例化
+				//my-note 使用默认的无参构造函数实例化
 				return instantiateBean(beanName, mbd);
 			}
 		}
@@ -1247,7 +1249,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR ||
 				mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args)) {
-			//my-note 使用构造方法实例化
+			//my-note 使用有参构造方法实例化
 			return autowireConstructor(beanName, mbd, ctors, args);
 		}
 
@@ -1833,7 +1835,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
-			//my-note 反射初始化方法
+			//my-note 反射调用初始化方法
 			invokeInitMethods(beanName, wrappedBean, mbd);
 		}
 		catch (Throwable ex) {
