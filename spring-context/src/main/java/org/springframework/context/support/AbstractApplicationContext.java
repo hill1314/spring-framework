@@ -605,7 +605,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
-				//实例化所有剩余的（非惰性init）singleton
+				//my-note 实例化所有剩余的（非惰性init）singleton
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -718,8 +718,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
-		//添加了后置处理器 ApplicationContextAwareProcessor，其作用：
-		//判断当前的bean 是否实现了以下 Aware接口，如果实现，就调用 Aware接口对应的方法 进行回调
+		//my-note 添加了后置处理器 ApplicationContextAwareProcessor，其作用：
+		// 判断当前的bean 是否实现了以下 Aware接口，如果实现，就调用 Aware接口对应的方法 进行回调
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
 		//MY-NOTE: 将一些 Aware接口添加到 依赖分析 忽略列表  ignoredDependencyInterfaces
@@ -740,19 +740,20 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.registerResolvableDependency(ApplicationContext.class, this);
 
 		// Register early post-processor for detecting inner beans as ApplicationListeners.
-		//注册 事件监听器 探测后置处理器，将实现了 ApplicationListener接口的类，添加到监听器列表中
+		//my-note 注册 事件监听器 探测后置处理器，将实现了 ApplicationListener接口的类，添加到监听器列表中
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found.
+		//my-note 如果非 graalVm环境，且包含 loadTimeWeaver bean
 		if (!NativeDetector.inNativeImage() && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
-			//类加载期间织入 后置处理器，识别并处理 LoadTimeWeaverAware 接口实现
+			//my-note 类加载期间织入 后置处理器，识别并处理 LoadTimeWeaverAware 接口实现
 			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
 			// Set a temporary ClassLoader for type matching.
 			beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
 		}
 
 		// Register default environment beans.
-		//将几个全局的环境相关的Bean也注册到 容器中
+		//my-note 将几个全局的环境相关的Bean也注册到 容器中
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
 		}
@@ -936,6 +937,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
 		// Initialize conversion service for this context.
+		//my-note 用于类型转换的服务接口
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
 			beanFactory.setConversionService(
@@ -945,12 +947,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Register a default embedded value resolver if no BeanFactoryPostProcessor
 		// (such as a PropertySourcesPlaceholderConfigurer bean) registered any before:
 		// at this point, primarily for resolution in annotation attribute values.
+		//my-note 注释属性值解析器的注册 PropertySourcesPlaceholderConfigurer
 		if (!beanFactory.hasEmbeddedValueResolver()) {
 			beanFactory.addEmbeddedValueResolver(strVal -> getEnvironment().resolvePlaceholders(strVal));
 		}
 
 		// Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.
-		//实例化 运行时织入AwareBean
+		//my-note 实例化 运行时织入AwareBean
 		String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
 		for (String weaverAwareName : weaverAwareNames) {
 			getBean(weaverAwareName);
@@ -963,6 +966,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
+		//my-note ==================== 实例化所有剩余的（非延迟初始化）单例 ====================
 		beanFactory.preInstantiateSingletons();
 	}
 

@@ -73,6 +73,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 			Advised advised = (Advised) bean;
 			if (!advised.isFrozen() && isEligible(AopUtils.getTargetClass(bean))) {
 				// Add our local Advisor to the existing proxy's Advisor chain...
+				//my-note 将本地切面通知 添加到已有代理的通知链中
 				if (this.beforeExistingAdvisors) {
 					advised.addAdvisor(0, this.advisor);
 				}
@@ -103,7 +104,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 		return bean;
 	}
 
-	/**
+	/** my-note 检查给定的bean是否有需要向这个后处理器的Advisor提供切面通知
 	 * Check whether the given bean is eligible for advising with this
 	 * post-processor's {@link Advisor}.
 	 * <p>Delegates to {@link #isEligible(Class)} for target class checking.

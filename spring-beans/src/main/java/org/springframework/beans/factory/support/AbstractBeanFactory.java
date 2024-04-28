@@ -269,7 +269,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			String name, @Nullable Class<T> requiredType, @Nullable Object[] args, boolean typeCheckOnly)
 			throws BeansException {
  		/*
-        1、转换beanName(别名转换)：传入的参数name可能只是别名，也可能是FactoryBean，所以需要进行解析转换：
+          my-note 1、转换beanName(别名转换)：传入的参数name可能只是别名，也可能是FactoryBean，所以需要进行解析转换：
         （1）消除修饰符，比如工厂引用前缀 String FACTORY_BEAN_PREFIX = "&";
         （2）解决spring中alias标签的别名问题
         */

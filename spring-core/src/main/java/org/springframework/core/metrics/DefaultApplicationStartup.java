@@ -25,15 +25,15 @@ import java.util.function.Supplier;
  *
  * <p>This variant is designed for minimal overhead and does not record events.
  *
- * DefaultStartupStep 是Spring Framework 5.2引入的新特性，它是Spring的启动步骤的默认实现。主要作用如下：
- * 1. 应用程序启动跟踪：
+ * my-note DefaultStartupStep 是Spring Framework 5.2引入的新特性，它是Spring的启动步骤的默认实现。主要作用如下：
+ *  1. 应用程序启动跟踪：
  * 		DefaultStartupStep用于跟踪Spring应用程序的启动过程。它能够记录应用程序启动时的各个关键步骤，包括初始化、加载配置、实例化Bean等。
- * 2. 性能分析：
+ *  2. 性能分析：
  * 		通过记录启动步骤，DefaultStartupStep可以用于性能分析和优化。它能够帮助开发者识别应用程序启动过程中的瓶颈和性能瓶颈，从而更好地优化应用程序的启动性能。
- * 3. 可扩展性：
+ *  3. 可扩展性：
  * 		DefaultStartupStep提供了扩展点，允许开发者自定义启动步骤，并将自定义的步骤集成到Spring的启动过程中。这样可以更好地监控和跟踪应用程序的启动过程。
  *
- * 总之，DefaultStartupStep在Spring框架中扮演着重要的角色，它 通过记录和跟踪应用程序的启动过程，帮助开发者进行性能分析和优化，
+ *   总之，DefaultStartupStep在Spring框架中扮演着重要的角色，它 通过记录和跟踪应用程序的启动过程，帮助开发者进行性能分析和优化，
  * 同时也提供了扩展点，允许开发者定制化应用程序的启动跟踪。
  *
  * @author Brian Clozel

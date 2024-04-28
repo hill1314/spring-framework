@@ -23,6 +23,10 @@ import org.springframework.beans.PropertyValues;
 import org.springframework.lang.Nullable;
 
 /**
+ * my-note BeanPostProcessor的子接口，添加实例化前回调和实例化后但在设置显式属性或自动布线之前的回调。
+ *  通常用于抑制特定目标bean的默认实例化，例如创建具有特殊TargetSources的代理（池化目标、延迟初始化目标等），或实现额外的注入策略，如字段注入。
+ *  注：此接口是一个专用接口，主要用于框架内的内部使用。建议尽可能实现纯BeanPostProcessor接口
+ *
  * Subinterface of {@link BeanPostProcessor} that adds a before-instantiation callback,
  * and a callback after instantiation but before explicit properties are set or
  * autowiring occurs.

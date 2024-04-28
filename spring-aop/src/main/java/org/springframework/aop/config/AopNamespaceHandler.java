@@ -21,6 +21,9 @@ import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
+ * my-note aop命名空间的NamespaceHandler。
+ *  为＜aop:config＞标记提供BeanDefinitionParser。config标记可以包括嵌套的切入点、顾问和方面标记
+ *
  * {@code NamespaceHandler} for the {@code aop} namespace.
  *
  * <p>Provides a {@link org.springframework.beans.factory.xml.BeanDefinitionParser} for the

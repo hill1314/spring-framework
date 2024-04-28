@@ -281,12 +281,12 @@ final class PostProcessorRegistrationDelegate {
 
 		// Finally, re-register all internal BeanPostProcessors.
 		sortPostProcessors(internalPostProcessors, beanFactory);
-		//my-note 整体排期后，重新注册后置处理器
+		//my-note 整体排序后，重新注册后置处理器
 		registerBeanPostProcessors(beanFactory, internalPostProcessors);
 
 		// Re-register post-processor for detecting inner beans as ApplicationListeners,
 		// moving it to the end of the processor chain (for picking up proxies etc).
-		//重新注册 ApplicationListenerDetector ，将其放到末尾
+		//my-note 重新注册 ApplicationListenerDetector ，将其放到末尾
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext));
 	}
 
