@@ -19,6 +19,7 @@ package org.springframework.transaction;
 import org.springframework.lang.Nullable;
 
 /**
+ * Spring平台事务管理器
  * This is the central interface in Spring's imperative transaction infrastructure.
  * Applications can use this directly, but it is not primarily meant as an API:
  * Typically, applications will work with either TransactionTemplate or
@@ -38,10 +39,11 @@ import org.springframework.lang.Nullable;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @since 16.05.2003
+ * @date 2024/05/26
  * @see org.springframework.transaction.support.TransactionTemplate
  * @see org.springframework.transaction.interceptor.TransactionInterceptor
- * @see org.springframework.transaction.ReactiveTransactionManager
+ * @see ReactiveTransactionManager
+ * @since 16.05.2003
  */
 public interface PlatformTransactionManager extends TransactionManager {
 

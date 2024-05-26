@@ -33,6 +33,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 import org.springframework.util.ClassUtils;
 
 /**
+ * 事务相关配置解析器
  * {@link org.springframework.beans.factory.xml.BeanDefinitionParser
  * BeanDefinitionParser} implementation that allows users to easily configure
  * all the infrastructure beans required to enable annotation-driven transaction
@@ -64,8 +65,10 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		String mode = element.getAttribute("mode");
 		if ("aspectj".equals(mode)) {
 			// mode="aspectj"
+			//本地事务切面
 			registerTransactionAspect(element, parserContext);
 			if (ClassUtils.isPresent("javax.transaction.Transactional", getClass().getClassLoader())) {
+				// JTA（全局）事务切面
 				registerJtaTransactionAspect(element, parserContext);
 			}
 		}
@@ -76,6 +79,13 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		return null;
 	}
 
+	/**
+	 *  注册适用于本地事务管理（Local Transaction Management）的切面
+	 *  --- 本地事务通常指的是在单个资源（如数据库）上执行的事务
+	 *
+	 * @param element       要素
+	 * @param parserContext 解析器上下文
+	 */
 	private void registerTransactionAspect(Element element, ParserContext parserContext) {
 		String txAspectBeanName = TransactionManagementConfigUtils.TRANSACTION_ASPECT_BEAN_NAME;
 		String txAspectClassName = TransactionManagementConfigUtils.TRANSACTION_ASPECT_CLASS_NAME;
@@ -88,6 +98,13 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		}
 	}
 
+	/**
+	 * 注册一个适用于全局事务管理（Global Transaction Management）或 JTA（Java Transaction API）事务的切面
+	 * --- 全局事务可以跨越多个资源（如多个数据库、消息队列等）
+	 *
+	 * @param element       要素
+	 * @param parserContext 解析器上下文
+	 */
 	private void registerJtaTransactionAspect(Element element, ParserContext parserContext) {
 		String txAspectBeanName = TransactionManagementConfigUtils.JTA_TRANSACTION_ASPECT_BEAN_NAME;
 		String txAspectClassName = TransactionManagementConfigUtils.JTA_TRANSACTION_ASPECT_CLASS_NAME;
@@ -100,9 +117,14 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		}
 	}
 
+	/**
+	 * 注册事务管理器
+	 *
+	 * @param element 元素
+	 * @param def     bean定义
+	 */
 	private static void registerTransactionManager(Element element, BeanDefinition def) {
-		def.getPropertyValues().add("transactionManagerBeanName",
-				TxNamespaceHandler.getTransactionManagerName(element));
+		def.getPropertyValues().add("transactionManagerBeanName", TxNamespaceHandler.getTransactionManagerName(element));
 	}
 
 	private void registerTransactionalEventListenerFactory(ParserContext parserContext) {

@@ -121,6 +121,7 @@ public abstract class AbstractFallbackTransactionAttributeSource
 		}
 		else {
 			// We need to work it out.
+			//获取事务属性
 			TransactionAttribute txAttr = computeTransactionAttribute(method, targetClass);
 			// Put it in the cache.
 			if (txAttr == null) {
@@ -143,6 +144,7 @@ public abstract class AbstractFallbackTransactionAttributeSource
 	}
 
 	/**
+	 * 计算事务属性
 	 * Determine a cache key for the given method and target class.
 	 * <p>Must not produce same key for overloaded methods.
 	 * Must produce same key for different instances of the same method.
@@ -179,6 +181,7 @@ public abstract class AbstractFallbackTransactionAttributeSource
 		}
 
 		// Second try is the transaction attribute on the target class.
+		//my-note 解析事务属性（通过解析Transaction注解）
 		txAttr = findTransactionAttribute(specificMethod.getDeclaringClass());
 		if (txAttr != null && ClassUtils.isUserLevelMethod(method)) {
 			return txAttr;

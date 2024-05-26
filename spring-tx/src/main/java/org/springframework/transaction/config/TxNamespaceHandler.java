@@ -24,6 +24,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * {@code NamespaceHandler} allowing for the configuration of
  * declarative transaction management using either XML or using annotations.
  *
+ * 此命名空间处理程序是 Spring事务管理方便并提供了两种方法 以声明方式管理事务。
+ *
  * <p>This namespace handler is the central piece of functionality in the
  * Spring transaction management facilities and offers two approaches
  * to declaratively manage transactions.
@@ -35,6 +37,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
+ * @date 2024/05/26
  * @since 2.0
  */
 public class TxNamespaceHandler extends NamespaceHandlerSupport {
@@ -52,8 +55,8 @@ public class TxNamespaceHandler extends NamespaceHandlerSupport {
 
 	@Override
 	public void init() {
+		//注册 解析器
 		registerBeanDefinitionParser("advice", new TxAdviceBeanDefinitionParser());
-		//
 		registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenBeanDefinitionParser());
 		registerBeanDefinitionParser("jta-transaction-manager", new JtaTransactionManagerBeanDefinitionParser());
 	}
